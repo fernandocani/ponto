@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 public class DataStore {
-    public let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext!
+    public let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
     // MARK: - Singleton
     public class var sharedInstance: DataStore {
@@ -34,12 +34,8 @@ public class DataStore {
             record.time2 = time2
             record.time1 = time1
             record.date = date
-            do {
-                try managedContext.save()
-                return true
-            } catch {
-                return false
-            }
+            (try! managedContext.save())
+            return true
         } else {
             return false
         }
@@ -103,12 +99,8 @@ public class DataStore {
                     recordList2.first!.comment   = comment
                     recordList2.first!.totalHor  = totalHor
                     recordList2.first!.totalMin  = totalMin
-                    do {
-                        try managedContext.save()
-                        return true
-                    } catch {
-                        return false
-                    }
+                    (try! managedContext.save())
+                    return true
                 } else {
 //                    let jaTem = UIAlertController(title: "Atenção!", message: "Já existem um registro nessa data. Deseja manter a atual ou efetuar a alteração assim mesmo? ", preferredStyle: UIAlertControllerStyle.Alert)
 //                    jaTem.addAction(UIAlertAction(title: "Alteração", style: .Destructive, handler: { (action: UIAlertAction!) in }))
@@ -137,12 +129,8 @@ public class DataStore {
             let record = try managedContext.executeFetchRequest(request) as! [Record]
             if record.count > 0 {
                 managedContext.deleteObject(record.first!)
-                do {
-                    try managedContext.save()
-                    return true
-                } catch {
-                    return false
-                }
+                (try! managedContext.save())
+                return true
             } else {
                 return false
             }
@@ -159,12 +147,8 @@ public class DataStore {
                 let record = recordList[valor]
                 managedContext.deleteObject(record)
             }
-            do {
-                try managedContext.save()
-                return true
-            } catch {
-                return false
-            }
+            (try! managedContext.save())
+            return true
         }
         return false
     }
@@ -180,12 +164,8 @@ public class DataStore {
         defaultTime.time3 = time3
         defaultTime.time2 = time2
         defaultTime.time1 = time1
-        do {
-            try managedContext.save()
-            return true
-        } catch {
-            return false
-        }
+        (try! managedContext.save())
+        return true
     }
     
     // MARK: - Read (DefaulTime)
@@ -211,12 +191,8 @@ public class DataStore {
                 defaultTime.time3 = time3
                 defaultTime.time4 = time4
             }
-            do {
-                try managedContext.save()
-                return true
-            } catch {
-                return false
-            }
+            (try! managedContext.save())
+            return true
         }
         return false
     }

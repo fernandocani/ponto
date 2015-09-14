@@ -106,8 +106,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         var coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
         let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("Ponto.sqlite")
-        print(url, terminator: "")
-        print("\n", terminator: "")
+        print(String(url) + "\n")
         
         var error: NSError? = nil
         var failureReason = "There was an error creating or loading the application's saved data."
@@ -134,13 +133,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return coordinator
     }()
 
-    lazy var managedObjectContext: NSManagedObjectContext? = {
+    lazy var managedObjectContext: NSManagedObjectContext = {
         // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.) This property is optional since there are legitimate error conditions that could cause the creation of the context to fail.
         let coordinator = self.persistentStoreCoordinator
-        if coordinator == nil {
-            return nil
-        }
-        var managedObjectContext = NSManagedObjectContext()
+        var managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = coordinator
         return managedObjectContext
     }()
@@ -148,20 +144,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Core Data Saving support
 
     func saveContext () {
-        if let moc = self.managedObjectContext {
-            var error: NSError? = nil
-            if moc.hasChanges {
-                do {
-                    try moc.save()
-                } catch let error1 as NSError {
-                    error = error1
-                    // Replace this implementation with code to handle the error appropriately.
-                    // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                    NSLog("Unresolved error \(error), \(error!.userInfo)")
-                    abort()
-                }
+        if managedObjectContext.hasChanges {
+            do {
+                try managedObjectContext.save()
+            } catch {
+                // Replace this implementation with code to handle the error appropriately.
+                // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                let nserror = error as NSError
+                NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
+                abort()
             }
         }
     }
-    
 }
