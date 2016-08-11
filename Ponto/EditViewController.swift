@@ -54,21 +54,21 @@ class EditViewController: UIViewController, UITextViewDelegate, SMDatePickerDele
         lblTotal.text = total
         if date!.comment == "" {
             txtComment.text = "Comentários:"
-            txtComment.textColor = UIColor.lightGray()
+            txtComment.textColor = UIColor.lightGray
         } else {
             txtComment.text = date!.comment
-            txtComment.textColor = UIColor.black()
+            txtComment.textColor = UIColor.black
         }
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         txtComment.text = ""
-        txtComment.textColor = UIColor.black()
+        txtComment.textColor = UIColor.black
     }
     
     func textViewDidChange(_ textView: UITextView) {
         if txtComment.text.characters.count == 0 {
-            txtComment.textColor = UIColor.lightGray()
+            txtComment.textColor = UIColor.lightGray
             txtComment.text = "Comentários:"
             txtComment.resignFirstResponder()
         }
@@ -135,8 +135,8 @@ class EditViewController: UIViewController, UITextViewDelegate, SMDatePickerDele
             formatter.dateFormat = "HH:mm"
         }
         picker.showPickerInView(view, animated: true)
-        picker.toolbarBackgroundColor = UIColor.gray()
-        picker.pickerBackgroundColor = UIColor.lightGray()
+        picker.toolbarBackgroundColor = UIColor.gray
+        picker.pickerBackgroundColor = UIColor.lightGray
         let data = formatter.date(from: pickerAtual)
         picker.pickerDate = data!
         picker.delegate = self

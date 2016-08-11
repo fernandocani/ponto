@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 public class DataStore {
-    public let managedContext = (UIApplication.shared().delegate as! AppDelegate).managedObjectContext
+    public let managedContext = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext
     
     // MARK: - Singleton
     public class var sharedInstance: DataStore {
@@ -52,7 +52,7 @@ public class DataStore {
     
     func getRecordByID(_ id: Int) -> Record! {
         let request: NSFetchRequest<NSFetchRequestResult> = Record.fetchRequest()
-        let predicate = Predicate(format: "id LIKE[cd] %@", id)
+        let predicate = NSPredicate(format: "id LIKE[cd] %@", id)
         request.predicate = predicate
         var objects: [AnyObject]?
         objects = (try! managedContext.fetch(request))
@@ -66,7 +66,7 @@ public class DataStore {
     
     func getRecordByDate(_ date: Date) -> Record! {
         let request: NSFetchRequest<NSFetchRequestResult> = Record.fetchRequest()
-        let predicate = Predicate(format: "date == %@", date)
+        let predicate = NSPredicate(format: "date == %@", date)
         request.predicate = predicate
         var objects: [AnyObject]?
         objects = (try! managedContext.fetch(request))
@@ -81,12 +81,12 @@ public class DataStore {
     
     public func updateRecordByDate(CurrentDate currentDate: Date, SaveDate saveDate: Date, Time1 time1: String, Time2 time2: String, Time3 time3: String, Time4 time4: String, Comment comment: String, TotalHor totalHor: Int16, TotalMin totalMin: Int16) -> Bool {
         let request: NSFetchRequest<NSFetchRequestResult> = Record.fetchRequest()
-        let predicate = Predicate(format: "date == %@", currentDate)
+        let predicate = NSPredicate(format: "date == %@", currentDate)
         request.predicate = predicate
         let recordList = (try! managedContext.fetch(request)) as! [Record]
         if recordList.count > 0 {
             let request2: NSFetchRequest<NSFetchRequestResult> = Record.fetchRequest()
-            let predicate2 = Predicate(format: "date == %@", saveDate)
+            let predicate2 = NSPredicate(format: "date == %@", saveDate)
             request2.predicate = predicate2
             let recordList2 = (try! managedContext.fetch(request2)) as! [Record]
             if recordList2.count != 0 {
@@ -123,7 +123,7 @@ public class DataStore {
 
     public func removeRecordByDate(_ date: Date) -> Bool {
         let request: NSFetchRequest<NSFetchRequestResult> = Record.fetchRequest()
-        let predicate = Predicate(format: "date == %@", date)
+        let predicate = NSPredicate(format: "date == %@", date)
         request.predicate = predicate
         do {
             let record = try managedContext.fetch(request) as! [Record]

@@ -23,25 +23,21 @@ class EditSingleton: NSObject {
     
     func calculateDifference1 (StartTime1 startTime1: Date, EndTime1 endTime1: Date) -> DateComponents {
         let userCalendar = Calendar.current
-        let _: Calendar.Unit = .day
-        let hourMinuteComponents1: Calendar.Unit = [.hour, .minute]
-        let timeDifference1 = userCalendar.components(
-            hourMinuteComponents1,
+        let _: NSCalendar.Unit = .day
+        let timeDifference1 = userCalendar.dateComponents(
+            [.hour, .minute],
             from: startTime1,
-            to: endTime1,
-            options: [])
+            to: endTime1)
         return timeDifference1
     }
     
     func calculateDifference2 (StartTime2 startTime2: Date, EndTime2 endTime2: Date) -> DateComponents {
         let userCalendar = Calendar.current
-        let _: Calendar.Unit = .day
-        let hourMinuteComponents2: Calendar.Unit = [.hour, .minute]
-        let timeDifference2 = userCalendar.components(
-            hourMinuteComponents2,
+        let _: NSCalendar.Unit = .day
+        let timeDifference2 = userCalendar.dateComponents(
+            [.hour, .minute],
             from: startTime2,
-            to: endTime2,
-            options: [])
+            to: endTime2)
         return timeDifference2
     }
     
@@ -52,7 +48,7 @@ class EditSingleton: NSObject {
         var timeDifference1: DateComponents?
         var timeDifference2: DateComponents?
         
-        let _: Calendar.Unit = [.hour, .minute]
+        let _: NSCalendar.Unit = [.hour, .minute]
         if hora1 != nil && hora2 != nil && hora3 != nil && hora4 != nil {
             caseSelected = 1
         } else {

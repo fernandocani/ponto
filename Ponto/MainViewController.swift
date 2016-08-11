@@ -54,23 +54,19 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             let time4 = dateFormatter.date(from: hor4)
             
             let userCalendar = Calendar.current
-            let _: Calendar.Unit = .day
+            let _: NSCalendar.Unit = .day
             let startTime1 = time1
             let endTime1 = time2
-            let hourMinuteComponents1: Calendar.Unit = [.hour, .minute]
-            let timeDifference1 = userCalendar.components(
-                hourMinuteComponents1,
+            let timeDifference1 = userCalendar.dateComponents(
+                [.hour, .minute],
                 from:   startTime1!,
-                to:     endTime1!,
-                options: [])
+                to:     endTime1!)
             let startTime2 = time3
             let endTime2 = time4
-            let hourMinuteComponents2: Calendar.Unit = [.hour, .minute]
-            let timeDifference2 = userCalendar.components(
-                hourMinuteComponents2,
+            let timeDifference2 = userCalendar.dateComponents(
+                [.hour, .minute],
                 from:   startTime2!,
-                to:     endTime2!,
-                options: [])
+                to:     endTime2!)
             var somaMin = timeDifference1.minute! + timeDifference2.minute!
             var somaHor = timeDifference1.hour! + timeDifference2.hour!
             if somaMin >= 60 {
@@ -128,7 +124,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         let formatter = DateFormatter()
         //Faz um sort por Data
         dataArray = DataStore.sharedInstance.getAllRecords()
-        let sortDescriptor1 = SortDescriptor(key: "date", ascending: false)
+        let sortDescriptor1 = NSSortDescriptor(key: "date", ascending: false)
         dataArray = dataArray.sortedArray(using: [sortDescriptor1])
         formatter.dateFormat = "dd/MM/yyyy"
         if dataArray.count == 0 {
@@ -522,7 +518,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             switch (dayOfWeek) {
             case "Monday":
                 cell.lblWeekday.text = " M"
-                cell.lblWeekday.backgroundColor = UIColor.red()
+                cell.lblWeekday.backgroundColor = UIColor.red
 //                cell.lblWeekday.backgroundColor = UIColor.clearColor()
 //                let gradient: CAGradientLayer = CAGradientLayer()
 //                gradient.frame = cell.lblWeekday.bounds
@@ -531,27 +527,27 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 break
             case "Tuesday":
                 cell.lblWeekday.text = " T"
-                cell.lblWeekday.backgroundColor = UIColor.orange()
+                cell.lblWeekday.backgroundColor = UIColor.orange
                 break
             case "Wednesday":
                 cell.lblWeekday.text = " W"
-                cell.lblWeekday.backgroundColor = UIColor.yellow()
+                cell.lblWeekday.backgroundColor = UIColor.yellow
                 break
             case "Thursday":
                 cell.lblWeekday.text = " T"
-                cell.lblWeekday.backgroundColor = UIColor.blue()
+                cell.lblWeekday.backgroundColor = UIColor.blue
                 break
             case "Friday":
                 cell.lblWeekday.text = " F"
-                cell.lblWeekday.backgroundColor = UIColor.green()
+                cell.lblWeekday.backgroundColor = UIColor.green
                 break
             case "Saturday":
                 cell.lblWeekday.text = " S"
-                cell.lblWeekday.backgroundColor = UIColor.lightGray()
+                cell.lblWeekday.backgroundColor = UIColor.lightGray
                 break
             case "Sunday":
                 cell.lblWeekday.text = " S"
-                cell.lblWeekday.backgroundColor = UIColor.gray()
+                cell.lblWeekday.backgroundColor = UIColor.gray
                 break
             default:
                 break

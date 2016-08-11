@@ -51,7 +51,7 @@ class SettingsViewController: UIViewController, SMDatePickerDelegate {
         var splitText5: NSArray             = [] //
         var splitText6: NSArray             = [] //
         
-        let path = Bundle.main.pathForResource("ImportData", ofType: "txt")
+        let path = Bundle.main.path(forResource: "ImportData", ofType: "txt")
         let txt: String?
         do {
             txt = try String(contentsOfFile: path!, encoding: String.Encoding.utf8)
@@ -138,8 +138,8 @@ class SettingsViewController: UIViewController, SMDatePickerDelegate {
         formatter.dateFormat = "HH:mm"
         
         picker.showPickerInView(view, animated: true)
-        picker.toolbarBackgroundColor = UIColor.gray()
-        picker.pickerBackgroundColor = UIColor.lightGray()
+        picker.toolbarBackgroundColor = UIColor.gray
+        picker.pickerBackgroundColor = UIColor.lightGray
         let data = formatter.date(from: pickerAtual)
         picker.pickerDate = data!
         picker.delegate = self

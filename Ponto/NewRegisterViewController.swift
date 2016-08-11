@@ -35,7 +35,7 @@ class NewRegisterViewController: UIViewController, UITextViewDelegate, SMDatePic
     func setBtnText() {
         let currentDate = Date()
         let formatter = DateFormatter()
-        formatter.timeZone = TimeZone.local
+        formatter.timeZone = NSTimeZone.local
         formatter.dateFormat = "dd/MM/yyyy"
         let dataFormatada = formatter.string(from: currentDate)
         btnDate.setTitle(dataFormatada, for: UIControlState())
@@ -51,18 +51,18 @@ class NewRegisterViewController: UIViewController, UITextViewDelegate, SMDatePic
         btnHoraSaida.setTitle(          strHora4, for: UIControlState())
         lblTotal.text = EditSingleton.sharedInstance.calculateDifference(formatter.date(from: strHora1), hora2: formatter.date(from: strHora2), hora3: formatter.date(from: strHora3), hora4: formatter.date(from: strHora4))
         txtComments.text = "Comentários:"
-        txtComments.textColor = UIColor.lightGray()
+        txtComments.textColor = UIColor.lightGray
         txtComments.delegate = self
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         txtComments.text = ""
-        txtComments.textColor = UIColor.black()
+        txtComments.textColor = UIColor.black
     }
     
     func textViewDidChange(_ textView: UITextView) {
         if txtComments.text.characters.count == 0 {
-            txtComments.textColor = UIColor.lightGray()
+            txtComments.textColor = UIColor.lightGray
             txtComments.text = "Comentários:"
             txtComments.resignFirstResponder()
         }
@@ -129,8 +129,8 @@ class NewRegisterViewController: UIViewController, UITextViewDelegate, SMDatePic
             formatter.dateFormat = "HH:mm"
         }
         picker.showPickerInView(view, animated: true)
-        picker.toolbarBackgroundColor = UIColor.gray()
-        picker.pickerBackgroundColor = UIColor.lightGray()
+        picker.toolbarBackgroundColor = UIColor.gray
+        picker.pickerBackgroundColor = UIColor.lightGray
         let data = formatter.date(from: pickerAtual)
         picker.pickerDate = data!
         picker.delegate = self

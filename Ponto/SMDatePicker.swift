@@ -30,7 +30,7 @@ import UIKit
     /** UIToolbar title */
     public var title: String?
     public var titleFont: UIFont = UIFont.systemFont(ofSize: 13)
-    public var titleColor: UIColor = UIColor.gray()
+    public var titleColor: UIColor = UIColor.gray
     
     /** You can define your own toolbar height. By default it's 44 pixels. */
     public var toolbarHeight: CGFloat = 44.0
@@ -109,9 +109,9 @@ import UIKit
             target: self,
             action: #selector(SMDatePicker.pressedClear(_:)))
         
-        doneButton.tintColor = UIColor.white()
-        cancelButton.tintColor = UIColor.white()
-        clearButton.tintColor = UIColor.white()
+        doneButton.tintColor = UIColor.white
+        cancelButton.tintColor = UIColor.white
+        clearButton.tintColor = UIColor.white
         leftButtons = [ cancelButton, clearButton ]
         rightButtons = [ doneButton ]
     }
@@ -120,7 +120,7 @@ import UIKit
         toolbar.barStyle = UIBarStyle.blackTranslucent
         toolbar.isTranslucent = false
         
-        backgroundColor = UIColor.white()
+        backgroundColor = UIColor.white
         
         if let toolbarBackgroundColor = toolbarBackgroundColor {
             toolbar.backgroundColor = toolbarBackgroundColor
