@@ -44,7 +44,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             let hor3 = "14:00"
             let hor4 = "18:00"
             
-            
             dateFormatter.dateFormat! = "HH:mm"
             print(dateFormatter)
             print(dateFormatter.date(from: hor1))
