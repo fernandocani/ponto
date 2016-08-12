@@ -13,7 +13,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // MARK: - IBOutlet
     @IBOutlet var tableView: UITableView!
-    @IBOutlet var btnTrash: UIBarButtonItem!
+    @IBOutlet var btnSettings: UIBarButtonItem!
 
     // MARK: - Variables
     var dataArray = NSArray()
@@ -25,6 +25,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     var yearsArray      = NSMutableArray()
     var monthsArray     = NSMutableArray()
     var daysArray       = NSMutableArray()
+    var ascending       = Bool()
     var anoSelecionado  = "2016"
     
     var ano     = NSMutableDictionary()
@@ -33,11 +34,13 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     let dateFormatter = DateFormatter()
     
+    var daysDic       = NSDictionary()
+    
     // MARK: - View
     override func viewDidLoad() {
         super.viewDidLoad()
 //        setWidget()
-        
+        ascending = true
         if (DataStore.sharedInstance.getAllDefaultTime().count <= 0) {
             let hor1 = "08:00"
             let hor2 = "12:00"
@@ -76,6 +79,37 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             let totalMin = Int16(somaMin)
             DataStore.sharedInstance.saveDataDefaultTime(Time1: hor1, Time2: hor2, Time3: hor3, Time4: hor4, TotalHor: totalHor, TotalMin: totalMin)
         }
+        
+        daysDic = [
+            "Monday":[
+                "text" : " M",
+                "color": UIColor.red
+            ],
+            "Tuesday":[
+                "text" : " T",
+                "color": UIColor.orange
+            ],
+            "Wednesday":[
+                "text" : " W",
+                "color": UIColor.yellow
+            ],
+            "Thursday":[
+                "text" : " T",
+                "color": UIColor.blue
+            ],
+            "Friday":[
+                "text" : " F",
+                "color": UIColor.green
+            ],
+            "Saturday":[
+                "text" : " S",
+                "color": UIColor.lightGray
+            ],
+            "Sunday":[
+                "text" : " S",
+                "color": UIColor.gray
+            ]
+        ]
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -123,7 +157,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         let formatter = DateFormatter()
         //Faz um sort por Data
         dataArray = DataStore.sharedInstance.getAllRecords()
-        let sortDescriptor1 = NSSortDescriptor(key: "date", ascending: false)
+        let sortDescriptor1 = NSSortDescriptor(key: "date", ascending: true)
         dataArray = dataArray.sortedArray(using: [sortDescriptor1])
         formatter.dateFormat = "dd/MM/yyyy"
         if dataArray.count == 0 {
@@ -262,8 +296,14 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             //Sort os Arrays
             let arrayAux:NSArray = arrayAux2.sortedArray(using: #selector(NSString.localizedCaseInsensitiveCompare(_:)))
             monthsString.removeAllObjects()
-            for valor15 in ((0 + 1)...arrayAux.count).reversed() {
-                monthsString.add(arrayAux.object(at: valor15 - 1))
+            if ascending {
+                for valor15 in ((0 + 1)...arrayAux.count).reversed() {
+                    monthsString.add(arrayAux.object(at: valor15 - 1))
+                }
+            } else {
+                for valor15 in ((0 + 1)...arrayAux.count) {
+                    monthsString.add(arrayAux.object(at: valor15 - 1))
+                }
             }
             populateDays()
         }
@@ -286,8 +326,14 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 //Sort os Arrays
                 let arrayAux:NSArray = arrayAux2.sortedArray(using: #selector(NSString.localizedCaseInsensitiveCompare(_:)))
                 daysString2.removeAllObjects()
-                for valor2 in ((0 + 1)...arrayAux.count).reversed() {
-                    daysString2.add(arrayAux.object(at: valor2 - 1))
+                if ascending {
+                    for valor2 in ((0 + 1)...arrayAux.count).reversed() {
+                        daysString2.add(arrayAux.object(at: valor2 - 1))
+                    }
+                } else {
+                    for valor2 in ((0 + 1)...arrayAux.count) {
+                        daysString2.add(arrayAux.object(at: valor2 - 1))
+                    }
                 }
                 daysAuxString.insert(daysString2, at: daysAuxString.count)
             }
@@ -357,9 +403,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         } else if horParaTrabalhar < horTrabalhado {
             //Menos trabalhou
         }
-        
-        
-        
         
         if minTrabalhado < minParaTrabalhar {
             minTrabalhado = minTrabalhado + 60
@@ -491,6 +534,14 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             formatter.dateFormat = "HH:mm"
             var total = EditSingleton.sharedInstance.calculateDifference(formatter.date(from: hora1), hora2: formatter.date(from: hora2), hora3: formatter.date(from: hora3), hora4: formatter.date(from: hora4))
+            var resto = ""
+            if (total != "--:--" && total != "00:00") {
+                if (formatter.date(from: total) > formatter.date(from: "08:00")) {
+                    resto = " | " + calculateTotalDifference(total,   totalParaTrabalhar: "08:00")
+                } else {
+                    resto = " | " + calculateTotalDifference("08:00", totalParaTrabalhar: total) + "-"
+                }
+            }
             if hora1 == "--:--" {
                 hora1 = "00:00"
             }
@@ -506,7 +557,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             if total == "00:00" {
                 total = "--:--"
             }
-            cell.lblDate.text = cell.lblDate.text! + " | Total: " + total
+            cell.lblDate.text  = cell.lblDate.text! + " | Total: " + total + resto
             cell.lblHora1.text = diaSelecionado.time1
             cell.lblHora2.text = diaSelecionado.time2
             cell.lblHora3.text = diaSelecionado.time3
@@ -514,43 +565,9 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             formatter.dateFormat = "EEEE"
             let dayOfWeek = formatter.string(from: diaSelecionado.date as Date)
-            switch (dayOfWeek) {
-            case "Monday":
-                cell.lblWeekday.text = " M"
-                cell.lblWeekday.backgroundColor = UIColor.red
-//                cell.lblWeekday.backgroundColor = UIColor.clearColor()
-//                let gradient: CAGradientLayer = CAGradientLayer()
-//                gradient.frame = cell.lblWeekday.bounds
-//                gradient.colors = [UIColor.whiteColor().CGColor, UIColor.blackColor().CGColor]
-//                cell.lblWeekday.layer.insertSublayer(gradient, atIndex: 0)
-                break
-            case "Tuesday":
-                cell.lblWeekday.text = " T"
-                cell.lblWeekday.backgroundColor = UIColor.orange
-                break
-            case "Wednesday":
-                cell.lblWeekday.text = " W"
-                cell.lblWeekday.backgroundColor = UIColor.yellow
-                break
-            case "Thursday":
-                cell.lblWeekday.text = " T"
-                cell.lblWeekday.backgroundColor = UIColor.blue
-                break
-            case "Friday":
-                cell.lblWeekday.text = " F"
-                cell.lblWeekday.backgroundColor = UIColor.green
-                break
-            case "Saturday":
-                cell.lblWeekday.text = " S"
-                cell.lblWeekday.backgroundColor = UIColor.lightGray
-                break
-            case "Sunday":
-                cell.lblWeekday.text = " S"
-                cell.lblWeekday.backgroundColor = UIColor.gray
-                break
-            default:
-                break
-            }
+            
+            cell.lblWeekday.text            = String((daysDic.object(forKey: dayOfWeek)! as! NSDictionary).object(forKey: "text")!)
+            cell.lblWeekday.backgroundColor =       ((daysDic.object(forKey: dayOfWeek)! as! NSDictionary).object(forKey: "color")!) as? UIColor
         }
         return cell
     }
@@ -577,6 +594,26 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         EditSingleton.sharedInstance.dateSelected = ((ano.object(forKey: anoSelecionado)! as! NSDictionary).object(forKey: monthsString[(indexPath as NSIndexPath).section])!.object(forKey: (daysAuxString[(indexPath as NSIndexPath).section] as! NSArray)[(indexPath as NSIndexPath).row] as! String) as! Record).date
+    }
+    
+    @IBAction func btnFilter(_ sender: UIBarButtonItem) {
+        clearInformations()
+        ascending = !ascending
+        populate()
+        tableView.reloadData()
+        if ascending {
+            //tableView.scrollsToTop
+        } else {
+            //tableView.
+            //let lastSection =
+            //let indexPath = NSIndexPath(forRow: (ano.object(forKey: anoSelecionado)! as! NSDictionary).object(forKey: monthsString.section])!.object(forKey: (daysAuxString[(indexPath as NSIndexPath).section] as! NSArray)), inSection: 0)
+            //tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
+        }
+    }
+    
+    func scrollToBottom() {
+        
+        
     }
 }
 
