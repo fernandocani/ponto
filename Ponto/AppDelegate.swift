@@ -63,8 +63,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Create the coordinator and store
         
         var coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-        let url = try! self.applicationDocumentsDirectory.appendingPathComponent("Ponto.sqlite")
-        print(String(url) + "\n")
+        let url = self.applicationDocumentsDirectory.appendingPathComponent("Ponto.sqlite")
+        //print(String(url) + "\n")
         
         var error: NSError? = nil
         var failureReason = "There was an error creating or loading the application's saved data."
@@ -72,17 +72,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         do {
             try coordinator!.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: [NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption: true])
         } catch var error1 as NSError {
-            error = error1
-            coordinator = nil
+            //error = error1
+            //coordinator = nil
             // Report any error we got.
-            var dict = [String: AnyObject]()
-            dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
-            dict[NSLocalizedFailureReasonErrorKey] = failureReason
-            dict[NSUnderlyingErrorKey] = error
-            error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
-            // Replace this with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            NSLog("Unresolved error \(error), \(error!.userInfo)")
+            //var dict = [String: AnyObject]()
+            //dict[NSLocalizedDescriptionKey] = AnyObject("Failed to initialize the application's saved data")
+            //dict[NSLocalizedFailureReasonErrorKey] = failureReason
+            //dict[NSUnderlyingErrorKey] = error
+            //error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
+            //// Replace this with code to handle the error appropriately.
+            //// abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            //NSLog("Unresolved error \(error), \(error!.userInfo)")
             abort()
         } catch {
             fatalError()

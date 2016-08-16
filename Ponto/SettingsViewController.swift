@@ -44,12 +44,12 @@ class SettingsViewController: UIViewController, SMDatePickerDelegate {
             DataStore.sharedInstance.removeAllRecords()
         }
         let formatter = DateFormatter()
-        var splitText1: NSArray             = [] //
-        var splitText2: NSArray             = [] //
-        var splitText3: NSArray             = [] //
-        var splitText4: NSArray             = [] //
-        var splitText5: NSArray             = [] //
-        var splitText6: NSArray             = [] //
+        //var splitText1: NSArray             = [] //
+        //var splitText2: NSArray             = [] //
+        //var splitText3: NSArray             = [] //
+        //var splitText4: NSArray             = [] //
+        //var splitText5: NSArray             = [] //
+        //var splitText6: NSArray             = [] //
         
         let path = Bundle.main.path(forResource: "ImportData", ofType: "txt")
         let txt: String?
@@ -59,28 +59,28 @@ class SettingsViewController: UIViewController, SMDatePickerDelegate {
             txt = nil
         }
         
-        splitText1 = txt!.components(separatedBy: "*")
+        let splitText1 = txt!.components(separatedBy: "*")
         for valor in 0...(splitText1.count - 1) {
-            if (splitText1[valor] as! String) != "" {
+            if (splitText1[valor]) != "" {
                 //Quebra em |, divisões de clubes
-                splitText2 = splitText1[valor].components(separatedBy: "\n")
+                let splitText2 = (splitText1[valor] as AnyObject).components(separatedBy: "\n")
                 //Ano/Mês
-                splitText3 = splitText2.object(at: 0).components(separatedBy: "+")
-                let anoTxt = splitText3[0] as! String
-                let mesTxt = splitText3[1] as! String
+                let splitText3 = splitText2[0].components(separatedBy: "+")
+                let anoTxt = splitText3[0]
+                let mesTxt = splitText3[1]
                 //Varre o resto
                 for valor1 in 1...(splitText2.count - 1) {
                     //splitText3 = array de linhas de Dias
-                    splitText4 = splitText2.object(at: valor1).components(separatedBy: "#")
+                    let splitText4 = splitText2[valor1].components(separatedBy: "#")
                     //splitText4 = array da linhas por Horarios
-                    let diaTxt = splitText4.object(at: 0) as! String
+                    let diaTxt = splitText4[0]
                     if splitText4.count > 1 {
-                        splitText5 = splitText4.object(at: 1).components(separatedBy: "|")
-                        var hor1Txt = splitText5.object(at: 0) as! String
-                        var hor2Txt = splitText5.object(at: 1) as! String
-                        var hor3Txt = splitText5.object(at: 2) as! String
-                        var hor4Txt = splitText5.object(at: 3) as! String
-                        let comment = splitText5.object(at: 4) as! String
+                        let splitText5 = splitText4[1].components(separatedBy: "|")
+                        var hor1Txt = splitText5[0]
+                        var hor2Txt = splitText5[1]
+                        var hor3Txt = splitText5[2]
+                        var hor4Txt = splitText5[3]
+                        let comment = splitText5[4]
                         if (hor1Txt == "") {
                             hor1Txt = "--:--"
                         }
@@ -101,9 +101,9 @@ class SettingsViewController: UIViewController, SMDatePickerDelegate {
                         let hora3 = formatter.date(from: hor3Txt)
                         let hora4 = formatter.date(from: hor4Txt)
                         let totalTxt = EditSingleton.sharedInstance.calculateDifference(hora1, hora2: hora2, hora3: hora3, hora4: hora4)
-                        splitText6 = totalTxt.components(separatedBy: ":")
-                        let totalHorTxt = Int16(Int((splitText6[0] as! String))!)
-                        let totalMinTxt = Int16(Int((splitText6[1] as! String))!)
+                        let splitText6 = totalTxt.components(separatedBy: ":")
+                        let totalHorTxt = Int16(Int(splitText6[0])!)
+                        let totalMinTxt = Int16(Int(splitText6[1])!)
                         DataStore.sharedInstance.saveData(Date: dateTxt!, Time1: hor1Txt, Time2: hor2Txt, Time3: hor3Txt, Time4: hor4Txt, Comment: comment, TotalHor: totalHorTxt, TotalMin: totalMinTxt)
                     }
                 }

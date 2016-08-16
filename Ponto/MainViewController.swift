@@ -158,7 +158,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         //Faz um sort por Data
         dataArray = DataStore.sharedInstance.getAllRecords()
         let sortDescriptor1 = NSSortDescriptor(key: "date", ascending: true)
-        dataArray = dataArray.sortedArray(using: [sortDescriptor1])
+        dataArray = dataArray.sortedArray(using: [sortDescriptor1]) as NSArray
         formatter.dateFormat = "dd/MM/yyyy"
         if dataArray.count == 0 {
             return
@@ -270,12 +270,12 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                     //Separa por Dia
                     for valor13 in 0...(daysArray.count - 1) {
                         let diaSelecionado = daysArray[valor13] as! Record
-                        dias.setObject(diaSelecionado, forKey: "\(daysString[valor13])")
+                        dias.setObject(diaSelecionado, forKey: daysString[valor13] as! NSCopying)
                     }
-                    meses.setObject(dias, forKey: "\(monthsString[valor7])")
+                    meses.setObject(dias, forKey: monthsString[valor7] as! NSCopying)
                     dias = NSMutableDictionary()
                 }
-                ano.setObject(meses, forKey: "\(yearsString[valor3])")
+                ano.setObject(meses, forKey: yearsString[valor3] as! NSCopying)
                 meses = NSMutableDictionary()
             }
         }
@@ -294,7 +294,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 arrayAux2.add(str)
             }
             //Sort os Arrays
-            let arrayAux:NSArray = arrayAux2.sortedArray(using: #selector(NSString.localizedCaseInsensitiveCompare(_:)))
+            let arrayAux:NSArray = arrayAux2.sortedArray(using: #selector(NSString.localizedCaseInsensitiveCompare(_:))) as NSArray
             monthsString.removeAllObjects()
             if ascending {
                 for valor15 in ((0 + 1)...arrayAux.count).reversed() {
@@ -315,16 +315,18 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         for valor in 0...(monthsString.count - 1) {
             let daysString2 = NSMutableArray()
-            if (ano.object(forKey: anoSelecionado)?.object(forKey: (monthsString[valor]) as! String) != nil) {
-                let _ = ((ano.object(forKey: anoSelecionado)?.object(forKey: (monthsString[valor] as! String))) as! NSDictionary).count
-                daysString2.addObjects(from: ((ano.object(forKey: anoSelecionado) as! NSDictionary).object(forKey: monthsString[valor]) as! NSDictionary).allKeys)
+            let dataAno =     ano.object(forKey: anoSelecionado)! as! NSDictionary
+            let dataMes = dataAno.object(forKey: (monthsString[valor])) as! NSDictionary
+            
+            if (dataMes.count > 0) {
+                daysString2.addObjects(from: dataMes.allKeys)
                 let arrayAux2 = NSMutableArray()
                 for valor1 in 0...(daysString2.count - 1) {
                     let str: String = (daysString2[valor1]) as! String
                     arrayAux2.add(str)
                 }
                 //Sort os Arrays
-                let arrayAux:NSArray = arrayAux2.sortedArray(using: #selector(NSString.localizedCaseInsensitiveCompare(_:)))
+                let arrayAux:NSArray = arrayAux2.sortedArray(using: #selector(NSString.localizedCaseInsensitiveCompare(_:))) as NSArray
                 daysString2.removeAllObjects()
                 if ascending {
                     for valor2 in ((0 + 1)...arrayAux.count).reversed() {
@@ -342,16 +344,16 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // MARK: - Calculate
     func calculateTotal(_ month: String) -> String {
-        let month: AnyObject? = ano.object(forKey: anoSelecionado)?.object(forKey: month)
+        let month = (ano.object(forKey: anoSelecionado) as! NSDictionary).object(forKey: month) as! NSDictionary
         if (month != nil) {
-            let days = (month as! NSDictionary).allKeys
+            let days = month.allKeys
             let formatter = DateFormatter()
             formatter.dateFormat = "HH:mm"
             let totalPorDiaHor = NSMutableArray()
             let totalPorDiaMin = NSMutableArray()
             for valor1 in 0...(days.count - 1) {
-                totalPorDiaHor.add(Int(((month as! NSDictionary).object(forKey: days[valor1]) as! Record).totalHor))
-                totalPorDiaMin.add(Int(((month as! NSDictionary).object(forKey: days[valor1]) as! Record).totalMin))
+                totalPorDiaHor.add(Int((month.object(forKey: days[valor1]) as! Record).totalHor))
+                totalPorDiaMin.add(Int((month.object(forKey: days[valor1]) as! Record).totalMin))
             }
             var somaHor = 0
             var somaMin = 0
@@ -434,8 +436,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         var totalHor = Int16(0)
         var totalMin = Int16(0)
         var days = NSDictionary()
-        if (((ano.object(forKey: anoSelecionado)?.object(forKey: (monthsString[section] as! String)))) != nil) {
-            days = ((ano.object(forKey: anoSelecionado)?.object(forKey: (monthsString[section] as! String))) as! NSDictionary)
+        if ((((ano.object(forKey: anoSelecionado) as! NSDictionary).object(forKey: (monthsString[section] as! String)))) != nil) {
+            days = (((ano.object(forKey: anoSelecionado) as! NSDictionary).object(forKey: (monthsString[section] as! String))) as! NSDictionary)
             daysCount = days.count
             
             totalHor = ((DataStore.sharedInstance.getAllDefaultTime().firstObject) as! DefaultTime).totalHor * Int16(daysCount)
@@ -511,8 +513,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var mesesCount = 0
-        if (((ano.object(forKey: anoSelecionado)?.object(forKey: (monthsString[section] as! String)))) != nil) {
-            mesesCount = ((ano.object(forKey: anoSelecionado)?.object(forKey: (monthsString[section] as! String))) as! NSDictionary).count
+        if ((((ano.object(forKey: anoSelecionado) as! NSDictionary).object(forKey: (monthsString[section] as! String)))) != nil) {
+            mesesCount = (((ano.object(forKey: anoSelecionado) as! NSDictionary).object(forKey: (monthsString[section] as! String))) as! NSDictionary).count
         }
         return mesesCount
     }
@@ -520,7 +522,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell") as! TableViewCell
         if monthsString.count != 0 {
-            let mesSelecionado: (AnyObject?) = ((ano.object(forKey: anoSelecionado) as! NSDictionary).object(forKey: monthsString[(indexPath as NSIndexPath).section])!.object(forKey: (daysAuxString[(indexPath as NSIndexPath).section] as! NSArray)[(indexPath as NSIndexPath).row] as! String))
+            let mesSelecionado = (((ano.object(forKey: anoSelecionado) as! NSDictionary).object(forKey: monthsString[(indexPath as NSIndexPath).section])! as! NSDictionary).object(forKey: (daysAuxString[(indexPath as NSIndexPath).section] as! NSArray)[(indexPath as NSIndexPath).row] as! String))
             let diaSelecionado = (mesSelecionado as! Record)
             let formatter = DateFormatter()
             formatter.dateFormat = "dd" //"dd EEEE"
@@ -531,12 +533,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             var hora3 = diaSelecionado.time3
             var hora4 = diaSelecionado.time4
             
-            
             formatter.dateFormat = "HH:mm"
             var total = EditSingleton.sharedInstance.calculateDifference(formatter.date(from: hora1), hora2: formatter.date(from: hora2), hora3: formatter.date(from: hora3), hora4: formatter.date(from: hora4))
             var resto = ""
             if (total != "--:--" && total != "00:00") {
-                if (formatter.date(from: total) > formatter.date(from: "08:00")) {
+                if (formatter.date(from: total)! > formatter.date(from: "08:00")!) {
                     resto = " | " + calculateTotalDifference(total,   totalParaTrabalhar: "08:00")
                 } else {
                     resto = " | " + calculateTotalDifference("08:00", totalParaTrabalhar: total) + "-"
@@ -566,8 +567,19 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             formatter.dateFormat = "EEEE"
             let dayOfWeek = formatter.string(from: diaSelecionado.date as Date)
             
-            cell.lblWeekday.text            = String((daysDic.object(forKey: dayOfWeek)! as! NSDictionary).object(forKey: "text")!)
-            cell.lblWeekday.backgroundColor =       ((daysDic.object(forKey: dayOfWeek)! as! NSDictionary).object(forKey: "color")!) as? UIColor
+            cell.lblWeekday.text            = ((daysDic.object(forKey: dayOfWeek)! as! NSDictionary).object(forKey: "text")!)  as? String
+            cell.lblWeekday.backgroundColor = ((daysDic.object(forKey: dayOfWeek)! as! NSDictionary).object(forKey: "color")!) as? UIColor
+            
+            formatter.dateFormat = "dd/MM/yyyy"
+            let currentDay = formatter.string(from: diaSelecionado.date as Date)
+            let hoje       = formatter.string(from: Date())
+            print("currentDay: \(currentDay)")
+            print("hoje      : \(hoje)")
+            if (currentDay == hoje) {
+                cell.backgroundColor = UIColor.lightGray
+            } else {
+                cell.backgroundColor = UIColor.clear
+            }
         }
         return cell
     }
@@ -577,7 +589,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        let mesSelecionado = ((ano.object(forKey: anoSelecionado)! as! NSDictionary).object(forKey: monthsString[(indexPath as NSIndexPath).section])!.object(forKey: (daysAuxString[(indexPath as NSIndexPath).section] as! NSArray)[(indexPath as NSIndexPath).row] as! String) as! Record)
+        let mesSelecionado = (((ano.object(forKey: anoSelecionado)! as! NSDictionary).object(forKey: monthsString[(indexPath as NSIndexPath).section])! as! NSDictionary).object(forKey: (daysAuxString[(indexPath as NSIndexPath).section] as! NSArray)[(indexPath as NSIndexPath).row] as! String) as! Record)
         if editingStyle == UITableViewCellEditingStyle.delete {
             if DataStore.sharedInstance.removeRecordByDate(mesSelecionado.date) {
                 populate()
@@ -592,8 +604,17 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        EditSingleton.sharedInstance.dateSelected = ((ano.object(forKey: anoSelecionado)! as! NSDictionary).object(forKey: monthsString[(indexPath as NSIndexPath).section])!.object(forKey: (daysAuxString[(indexPath as NSIndexPath).section] as! NSArray)[(indexPath as NSIndexPath).row] as! String) as! Record).date
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goEdit" {
+            let cell = sender as! UITableViewCell
+            let indexPath = tableView.indexPath(for: cell)!
+            
+            let dataMes =     ano.object(forKey: anoSelecionado)! as! NSDictionary
+            let dataDia = dataMes.object(forKey:   monthsString[(indexPath as NSIndexPath).section])! as! NSDictionary
+            let data    = dataDia.object(forKey: (daysAuxString[(indexPath as NSIndexPath).section]   as! NSArray)[(indexPath as NSIndexPath).row] as! String) as! Record
+            
+            EditSingleton.sharedInstance.dateSelected = data.date
+        }
     }
     
     @IBAction func btnFilter(_ sender: UIBarButtonItem) {
@@ -609,11 +630,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             //let indexPath = NSIndexPath(forRow: (ano.object(forKey: anoSelecionado)! as! NSDictionary).object(forKey: monthsString.section])!.object(forKey: (daysAuxString[(indexPath as NSIndexPath).section] as! NSArray)), inSection: 0)
             //tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
         }
-    }
-    
-    func scrollToBottom() {
-        
-        
     }
 }
 
