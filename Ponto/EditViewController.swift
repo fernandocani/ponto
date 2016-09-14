@@ -47,7 +47,10 @@ class EditViewController: UIViewController, UITextViewDelegate, SMDatePickerDele
         btnHora3.setTitle(strHora3, for: UIControlState())
         btnHora4.setTitle(strHora4, for: UIControlState())
         
-        var total = EditSingleton.sharedInstance.calculateDifference(formatter.date(from: strHora1), hora2: formatter.date(from: strHora2), hora3: formatter.date(from: strHora3), hora4: formatter.date(from: strHora4))
+        var total = EditSingleton.sharedInstance.calculateDifference(formatter.date(from: strHora1),
+                                                                     hora2: formatter.date(from: strHora2),
+                                                                     hora3: formatter.date(from: strHora3),
+                                                                     hora4: formatter.date(from: strHora4))
         if total == "00:00" {
             total = "--:--"
         }

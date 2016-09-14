@@ -16,13 +16,14 @@
 		DFB76BC11B8B5C0100503015 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFB76BBF1B8B5C0100503015 /* Main.storyboard */; };
 		DFB76BC31B8B5C0100503015 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFB76BC21B8B5C0100503015 /* Images.xcassets */; };
 		DFB76BC61B8B5C0100503015 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DFB76BC41B8B5C0100503015 /* LaunchScreen.xib */; };
-		DFB76BD21B8B5C0100503015 /* PontoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB76BD11B8B5C0100503015 /* PontoTests.swift */; };
 		DFB76BE01B8B5ED600503015 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB76BDF1B8B5ED600503015 /* MainViewController.swift */; };
 		DFB76BE21B8B623C00503015 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB76BE11B8B623C00503015 /* Record.swift */; };
 		DFB76BE61B8B63A500503015 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB76BE51B8B63A500503015 /* DataStore.swift */; };
 		DFB76BE81B8B650600503015 /* NewRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB76BE71B8B650600503015 /* NewRegisterViewController.swift */; };
 		DFB76BEA1B8B65E500503015 /* SMDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB76BE91B8B65E500503015 /* SMDatePicker.swift */; };
 		DFC2B2D31B90DEA5009D46A9 /* ImportData.txt in Resources */ = {isa = PBXBuildFile; fileRef = DFC2B2D21B90DEA5009D46A9 /* ImportData.txt */; };
+		ED0DE6011D735A2100C6D060 /* RendimentoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0DE6001D735A2100C6D060 /* RendimentoViewController.swift */; };
+		EDAED9981D8A0DBB00C54D40 /* CircleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAED9971D8A0DBB00C54D40 /* CircleViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,11 +56,6 @@
 		DF4B28D11B91131F008E0D77 /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		DF529BA21B98C5FD00EDCB48 /* Ponto v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Ponto v2.xcdatamodel"; sourceTree = "<group>"; };
 		DF9872C81BA332F5006D07A9 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
-		DF9872CB1BA332F5006D07A9 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
-		DF9872CE1BA332F5006D07A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
-		DF9872D01BA332F5006D07A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DFB518421BA34EB40016A737 /* Ponto.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Ponto.entitlements; sourceTree = "<group>"; };
-		DFB518431BA34FE50016A737 /* Ponto Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Ponto Widget.entitlements"; sourceTree = "<group>"; };
 		DFB76BB31B8B5C0100503015 /* Ponto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ponto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFB76BB71B8B5C0100503015 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DFB76BB81B8B5C0100503015 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -68,14 +64,14 @@
 		DFB76BC21B8B5C0100503015 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DFB76BC51B8B5C0100503015 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		DFB76BCB1B8B5C0100503015 /* PontoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PontoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		DFB76BD01B8B5C0100503015 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DFB76BD11B8B5C0100503015 /* PontoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PontoTests.swift; sourceTree = "<group>"; };
 		DFB76BDF1B8B5ED600503015 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		DFB76BE11B8B623C00503015 /* Record.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
 		DFB76BE51B8B63A500503015 /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		DFB76BE71B8B650600503015 /* NewRegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewRegisterViewController.swift; sourceTree = "<group>"; };
 		DFB76BE91B8B65E500503015 /* SMDatePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMDatePicker.swift; sourceTree = "<group>"; };
 		DFC2B2D21B90DEA5009D46A9 /* ImportData.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ImportData.txt; sourceTree = "<group>"; };
+		ED0DE6001D735A2100C6D060 /* RendimentoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RendimentoViewController.swift; sourceTree = "<group>"; };
+		EDAED9971D8A0DBB00C54D40 /* CircleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,22 +100,9 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		DF9872CA1BA332F5006D07A9 /* Ponto Widget */ = {
-			isa = PBXGroup;
-			children = (
-				DFB518431BA34FE50016A737 /* Ponto Widget.entitlements */,
-				DF9872CB1BA332F5006D07A9 /* TodayViewController.swift */,
-				DF9872CD1BA332F5006D07A9 /* MainInterface.storyboard */,
-				DF9872D01BA332F5006D07A9 /* Info.plist */,
-			);
-			path = "Ponto Widget";
-			sourceTree = "<group>";
-		};
 		DFB76BAA1B8B5C0100503015 = {
 			isa = PBXGroup;
 			children = (
-				DFB76BCE1B8B5C0100503015 /* PontoTests */,
-				DF9872CA1BA332F5006D07A9 /* Ponto Widget */,
 				DF9872C71BA332F5006D07A9 /* Frameworks */,
 				DFB76BB41B8B5C0100503015 /* Products */,
 				DFB76BB51B8B5C0100503015 /* Ponto */,
@@ -138,7 +121,6 @@
 		DFB76BB51B8B5C0100503015 /* Ponto */ = {
 			isa = PBXGroup;
 			children = (
-				DFB518421BA34EB40016A737 /* Ponto.entitlements */,
 				DFB76BDE1B8B5CF900503015 /* Resources */,
 				DFB76BDD1B8B5CEF00503015 /* Controller */,
 				DFB76BDC1B8B5CEB00503015 /* View */,
@@ -152,23 +134,6 @@
 			isa = PBXGroup;
 			children = (
 				DFB76BB71B8B5C0100503015 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		DFB76BCE1B8B5C0100503015 /* PontoTests */ = {
-			isa = PBXGroup;
-			children = (
-				DFB76BD11B8B5C0100503015 /* PontoTests.swift */,
-				DFB76BCF1B8B5C0100503015 /* Supporting Files */,
-			);
-			path = PontoTests;
-			sourceTree = "<group>";
-		};
-		DFB76BCF1B8B5C0100503015 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				DFB76BD01B8B5C0100503015 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -193,11 +158,13 @@
 		DFB76BDD1B8B5CEF00503015 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				EDAED9971D8A0DBB00C54D40 /* CircleViewController.swift */,
 				DFB76BEB1B8B660400503015 /* DatePicker */,
 				DFB76BDF1B8B5ED600503015 /* MainViewController.swift */,
 				DFB76BE71B8B650600503015 /* NewRegisterViewController.swift */,
 				DF4B28D11B91131F008E0D77 /* EditViewController.swift */,
 				DF11A7AE1B948CC10024A6B0 /* SettingsViewController.swift */,
+				ED0DE6001D735A2100C6D060 /* RendimentoViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -355,6 +322,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DFB76BE21B8B623C00503015 /* Record.swift in Sources */,
+				ED0DE6011D735A2100C6D060 /* RendimentoViewController.swift in Sources */,
 				DFB76BE01B8B5ED600503015 /* MainViewController.swift in Sources */,
 				DF11A7AF1B948CC10024A6B0 /* SettingsViewController.swift in Sources */,
 				DF11A7AD1B9486200024A6B0 /* DefaultTime.swift in Sources */,
@@ -365,6 +333,7 @@
 				DFB76BEA1B8B65E500503015 /* SMDatePicker.swift in Sources */,
 				DF4B28D01B9111EE008E0D77 /* EditSingleton.swift in Sources */,
 				DF4B28D21B91131F008E0D77 /* EditViewController.swift in Sources */,
+				EDAED9981D8A0DBB00C54D40 /* CircleViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,7 +341,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DFB76BD21B8B5C0100503015 /* PontoTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,14 +355,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		DF9872CD1BA332F5006D07A9 /* MainInterface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DF9872CE1BA332F5006D07A9 /* Base */,
-			);
-			name = MainInterface.storyboard;
-			sourceTree = "<group>";
-		};
 		DFB76BBF1B8B5C0100503015 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -505,6 +465,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = YNJCX2546B;
 				INFOPLIST_FILE = Ponto/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -522,6 +483,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = YNJCX2546B;
 				INFOPLIST_FILE = Ponto/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
